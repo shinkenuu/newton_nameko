@@ -1,0 +1,47 @@
+version: "3.4"
+services:
+  web:
+    container_name: newton_web
+    build: ./web
+    depends_on:
+      - rabbitmq
+      - redis
+    ports:
+      - "5000:5000"
+    environment:
+      WEB_SERVER_ADDRESS: "web:5000"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      AMQP_URI: "pyamqp://guest:guest@rabbitmq:5672/"
+      REDIS_URI: "redis://redis:6379/0"
+
+  rpc:
+    container_name: newton_rpc
+    build: ./rpc
+    depends_on:
+      - rabbitmq
+      - redis
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      AMQP_URI: "pyamqp://guest:guest@rabbitmq:5672/"
+      REDIS_URI: "redis://redis:6379/0"
+
+  rabbitmq:
+    container_name: newton_rabbitmq
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    container_name: newton_redis
+    image: redis:5.0.7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
