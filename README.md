@@ -22,9 +22,7 @@ docker-compose up --build
 sh calculate.sh OPERATION
 ```
 
-This will request the `WEB microservice` to schedule an arithmetic `OPERATION` with arguments in `arguments.json` and retrieve the scheduled `procedure_uuid`.
-With it, the script can request the `WEB microservice` again, this time for the procedure's details. 
-
+This will request the `WEB microservice` to schedule an  
 ### Notes
 
 `Nameko` uses the `eventlets` lib to work it's async magic.
@@ -33,5 +31,5 @@ With it, the script can request the `WEB microservice` again, this time for the 
 
 Scale at your will by instantiating more `web` and/or `rpc` containers
 
-It's also good to remember that there is no mounted volumes, so all the procedure's records will be lost in the `void` once the containers stop.
+It's also good to remember that there are no mounted volumes, so all the procedure's records will be lost in the `void` once the containers stop.
 And that will was really  fun to do <3
