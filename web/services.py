@@ -64,7 +64,7 @@ class WebService:
             return 202, json.dumps({'uuid': procedure_uuid})
 
         except ValidationError as error:
-            return 400, json.dumps({'error': str(error)})
+            return 400, json.dumps({'error': error.messages})
 
         except Exception as exception:
             logging.error(exception)

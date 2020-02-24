@@ -11,6 +11,7 @@ from constants import (
     MULTIPLY_OPERATION_NAME,
     DIVIDE_OPERATION_NAME,
     PROCEDURE_STATUS_DONE,
+    PROCEDURE_STATUS_ERROR,
 )
 
 _OPERATION_FUNCTION = {
@@ -38,9 +39,13 @@ class ArithmeticService:
             arithmetic_procedure['result'] = operation_function(*arithmetic_procedure['arguments'])
             status = PROCEDURE_STATUS_DONE
 
+        except ArithmeticError as error:
+            logging.error(error)
+            status = str(error)
+
         except Exception as exception:
             logging.error(exception)
-            status = str(exception)
+            status = PROCEDURE_STATUS_ERROR
 
         finally:
             logging.info('Procedure with uuid %s calculation finished', procedure_uuid)
