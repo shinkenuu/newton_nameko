@@ -33,7 +33,7 @@ py==1.8.1
 PyAMQP==0.0.8.11
 Pygments==2.5.2
 pyparsing==2.4.6
-PyYAML==5.3
+PyYAML==5.4
 redis==3.4.1
 requests==2.23.0
 six==1.14.0
